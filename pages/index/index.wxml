@@ -1,0 +1,25 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <image class="bg" src="{{cardImgSrc}}" mode="cover"></image>
+    <image class="logo" src="{{logo}}" mode="cover"></image>
+    <image class="title" src="{{title}}" mode="cover"></image>
+    <image class="save" src="{{save}}" bindtap='formSubmit'></image>
+    <view class="content">
+      <image class="left" src="{{left}}" bindtap='prev'></image>
+      <view class="box">
+        <image class="avatarUrl" src="{{avatarUrl}}" mode="cover"></image>
+        <image src="{{imgTagUrls}}" class="tag" mode="cover"/>
+      </view>
+      <image class="right" src="{{right}}" bindtap='next'></image>
+    </view>
+  </view>
+  <view class='imagePathBox' hidden="{{maskHidden == false}}">
+    <image src="{{shengcheng}}" class='shengcheng'></image>
+    <button class='savePic' bindtap='save'>保存相册</button>
+  </view>
+  <view hidden="{{maskHidden == false}}" class="mask"></view> 
+  <view class="canvas-box">
+    <canvas style="width: 200px;height: 200px;position:fixed;top:9999px" canvas-id="mycanvas"/>
+  </view>
+</view>

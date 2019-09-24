@@ -1,0 +1,140 @@
+/**index.wxss**/
+.userinfo {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+.mask {
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
+.bg {
+  width: 100%;
+  height: 100vh;
+}
+.logo {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 260px;
+  height: 126px;
+}
+.title {
+  position: absolute;
+  top: 185px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 187px;
+  height: 20px;
+}
+.save {
+  position: absolute;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 232px;
+  height: 75px;
+}
+.content {
+  position: absolute;
+  top: 230px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 100%;
+  height: 200px;
+  display: flex;
+}
+.left {
+  position: absolute;
+  left: 0;
+  margin: 78px 0 78px 30rpx;
+  width: 44px;
+  height: 44px;
+}
+.box {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 200px;
+  height: 200px;
+  background-color: #eee;
+  border: 5px solid #fbe6b5;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+.avatarUrl {
+  width: 190px;
+  height: 190px;
+  user-select: none;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 190px;
+  height: 190px;
+  user-select: none;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.right {
+  position: absolute;
+  right: 0;
+  margin: 78px 30rpx 78px 0;
+  width: 44px;
+  height: 44px;
+}
+.imagePathBox {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 250px;
+  height: 350px;
+  margin: auto; 
+  background-color: #fff;
+  border-radius: 10px;
+  z-index: 100;
+}
+.shengcheng {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  margin: auto; 
+  width: 400rpx;
+  height: 400rpx;
+}
+
+.savePic {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 300rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 50px;
+  background-color: orange;
+  font-size: 30rpx;
+}
