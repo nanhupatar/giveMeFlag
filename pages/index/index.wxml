@@ -1,15 +1,24 @@
-<!--index.wxml-->
+<!-- index.wxml -->
 <view class="container">
   <view class="userinfo">
     <image class="bg" src="{{cardImgSrc}}" mode="cover"></image>
     <image class="logo" src="{{logo}}" mode="cover"></image>
     <image class="title" src="{{title}}" mode="cover"></image>
-    <image class="save" src="{{save}}" bindtap='formSubmit'></image>
+    <view class='buttons'>
+      <button open-type="getUserInfo" wx:if="{{step===1}}" bindgetuserinfo="getUserInfo">
+        {{avatarUrl?'继续使用本机头像':'使用本机头像'}}
+      </button>
+      <button wx:if="{{step===1}}" bindtap="chooseImage">从相册上传</button>
+      <button bindtap="formSubmit" wx:if="{{step===2}}">保存到相册</button>
+      <button wx:if="{{step===2}}" bindtap="tryAgain">更换头像</button>
+      <button open-type="share" wx:if="{{step===3}}">分享</button>
+      <button wx:if="{{step===3}}" bindtap="tryAgain">继续制作</button>
+    </view>
     <view class="content">
       <image class="left" src="{{left}}" bindtap='prev'></image>
       <view class="box">
         <image class="avatarUrl" src="{{avatarUrl}}" mode="cover"></image>
-        <image src="{{imgTagUrls}}" class="tag" mode="cover"/>
+        <image src="{{imgTagUrls}}" class="tag" mode="cover" />
       </view>
       <image class="right" src="{{right}}" bindtap='next'></image>
     </view>
@@ -18,8 +27,8 @@
     <image src="{{shengcheng}}" class='shengcheng'></image>
     <button class='savePic' bindtap='save'>保存相册</button>
   </view>
-  <view hidden="{{maskHidden == false}}" class="mask"></view> 
+  <view bindtap="hideMask" hidden="{{maskHidden == false}}" class="mask"></view>
   <view class="canvas-box">
-    <canvas style="width: 200px;height: 200px;position:fixed;top:9999px" canvas-id="mycanvas"/>
+    <canvas style="width: 200px;height: 200px;position:fixed;top:9999px" canvas-id="mycanvas" />
   </view>
 </view>

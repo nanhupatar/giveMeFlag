@@ -1,36 +1,37 @@
 //index.js
 //获取应用实例
-const app = getApp()
+const app = getApp();
 
 Page({
   data: {
     imgUrls: [
-      '../../images/tu1.png',
-      '../../images/tu2.png',
-      '../../images/tu3.png',
-      '../../images/tu4.png',
-      '../../images/tu5.png',
+      "../../images/tu1.png",
+      "../../images/tu2.png",
+      "../../images/tu3.png",
+      "../../images/tu4.png",
+      "../../images/tu5.png"
     ],
-    imgTagUrls: '',
+    imgTagUrls: "",
     current: 0,
-    motto: '迎国庆换新颜',
-    cardImgSrc: '../../images/bg.png',  // 背景图
-    logo: '../../images/1.png',  
-    title: '../../images/2.png',
-    save: '../../images/3.png',  
-    left: '../../images/left.png',
-    right: '../../images/right.png',
+    motto: "迎国庆换新颜",
+    cardImgSrc: "../../images/bg.png", // 背景图
+    logo: "../../images/1.png",
+    title: "../../images/2.png",
+    save: "../../images/3.png",
+    left: "../../images/left.png",
+    right: "../../images/right.png",
     userInfo: {},
-    avatarUrl: '',
+    avatarUrl: "",
     maskHidden: false,
-    shengcheng: ''
+    shengcheng: "",
+    step: 1
   },
-  onLoad: function () {
+  onLoad: function() {
     //用户信息
     app.getUserInfo(userInfo => {
       this.setData({
-        userInfo: userInfo,
-      })
+        userInfo: userInfo
+      });
       wx.downloadFile({
         url: userInfo.avatarUrl,
         success: res => {
@@ -39,65 +40,65 @@ Page({
               avatarUrl: res.tempFilePath
             });
           }
-        }, fail: res => {
+        },
+        fail: res => {
           console.log(res);
         }
       });
-    })
+    });
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
+      });
+    } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
         this.setData({
           userInfo: res.userInfo,
           hasUserInfo: true
-        })
-      }
+        });
+      };
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
         success: res => {
-          app.globalData.userInfo = res.userInfo
+          app.globalData.userInfo = res.userInfo;
           this.setData({
             userInfo: res.userInfo,
             hasUserInfo: true
-          })
+          });
         }
-      })
+      });
     }
     this.setData({
-      imgTagUrls: this.data.imgUrls[0],
-    })
-    
+      imgTagUrls: this.data.imgUrls[0]
+    });
   },
-  prev: function () {
+  prev: function() {
     var current = this.data.current;
-    current = current === 0 ? (this.data.imgUrls.length - 1) : current - 1;
+    current = current === 0 ? this.data.imgUrls.length - 1 : current - 1;
     this.setData({
       current: current,
-      imgTagUrls: this.data.imgUrls[current],
-    })
+      imgTagUrls: this.data.imgUrls[current]
+    });
   },
-  next: function () {
+  next: function() {
     var current = this.data.current;
-    current = current < (this.data.imgUrls.length - 1) ? current + 1 : 0;
+    current = current < this.data.imgUrls.length - 1 ? current + 1 : 0;
     this.setData({
       current: current,
-      imgTagUrls: this.data.imgUrls[current],
-    })
+      imgTagUrls: this.data.imgUrls[current]
+    });
   },
-  catchTouchMove: function (res) {
-    return false
+  catchTouchMove: function(res) {
+    return false;
   },
   //将canvas转换为图片保存到本地，然后将图片路径传给image图片的src
-  createNewImg: function () {
+  createNewImg: function() {
     var that = this;
-    var context = wx.createCanvasContext('mycanvas');
+    var context = wx.createCanvasContext("mycanvas");
     var path = that.data.avatarUrl;
     var path1 = that.data.imgTagUrls;
 
@@ -106,73 +107,127 @@ Page({
 
     context.draw();
     //将生成好的图片保存到本地，需要延迟一会，绘制期间耗时
-    setTimeout( () => {
+    setTimeout(() => {
       wx.canvasToTempFilePath({
-        canvasId: 'mycanvas',
-        success: function (res) {
+        canvasId: "mycanvas",
+        success: function(res) {
           console.log(res);
           var tempFilePath = res.tempFilePath;
           that.setData({
-            shengcheng: tempFilePath,
+            shengcheng: tempFilePath
           });
         },
-        fail: function (res) {
+        fail: function(res) {
           console.log(res);
         }
       });
     }, 200);
   },
   //点击生成
-  formSubmit: function (e) {
+  formSubmit: function(e) {
     var that = this;
     this.setData({
       maskHidden: false
     });
     wx.showToast({
-      title: '生成中...',
-      icon: 'loading',
+      title: "生成中...",
+      icon: "loading",
       duration: 1000
     });
-    setTimeout(function () {
-      wx.hideToast()
+    setTimeout(function() {
+      wx.hideToast();
       that.createNewImg();
-      wx.vibrateLong();
+
       that.setData({
         maskHidden: true
       });
-    }, 1000)
+    }, 1000);
   },
-  save: function () {
-    var that = this
+  save: function() {
+    var that = this;
     wx.saveImageToPhotosAlbum({
       filePath: that.data.shengcheng,
       success(res) {
         wx.showModal({
-          content: '图片已保存到相册，赶紧晒一下吧~',
+          content: "图片已保存到相册，赶紧晒一下吧~",
           showCancel: false,
-          confirmText: '好的',
-          confirmColor: '#333',
-          success: function (res) {
+          confirmText: "好的",
+          confirmColor: "#333",
+          success: function(res) {
             if (res.confirm) {
-              console.log('用户点击确定');
+              console.log("用户点击确定");
               /* 该隐藏的隐藏 */
               that.setData({
-                maskHidden: false
-              })
+                maskHidden: false,
+                step: 3
+              });
             }
-          }, fail: function (res) {
-            console.log(11111)
+          },
+          fail: function(res) {
+            console.log(11111);
           }
-        })
+        });
       }
-    })
+    });
+  },
+  tryAgain: function() {
+    this.setData({
+      step: 1
+    });
+  },
+  hideMask: function() {
+    this.setData({
+      maskHidden: false
+    });
   },
   getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+    console.log(e);
+    app.globalData.userInfo = e.detail.userInfo;
+
+    const that = this;
+    wx.downloadFile({
+      url: e.detail.userInfo.avatarUrl,
+      success: res => {
+        if (res.statusCode === 200) {
+          that.setData({
+            avatarUrl: res.tempFilePath,
+            userInfo: e.detail.userInfo,
+            hasUserInfo: true,
+            step: 2
+          });
+        }
+      },
+      fail: res => {
+        console.log(res);
+      }
+    });
+  },
+  chooseImage: function() {
+    const that = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ["original"],
+      sourceType: ["album", "camera"],
+      success: res => {
+        console.log(res);
+        that.setData({
+          avatarUrl: res.tempFilePaths[0],
+          step: 2
+        });
+      },
+      fail: () => {
+        wx.showToast({
+          title: "请选择照片",
+          icon: "none"
+        });
+      },
+      complete: () => {}
+    });
+  },
+  onShareAppMessage: function() {
+    return {
+      title: "[@你] 给你一面国旗，为祖国庆生",
+      path: "/pages/index/index"
+    };
   }
-})
+});

@@ -22,7 +22,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.8.3",
-	"appid": "wxc89d73091d2a8a44",
+	"appid": "wx782bc54e41f0d4a3",
 	"projectname": "newPhoto",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -30,6 +30,7 @@
 	"isGameTourist": false,
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
+	"qqappid": "1109700736",
 	"condition": {
 		"search": {
 			"current": -1,
